@@ -8,246 +8,204 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Login Page -->
-  <div id="loginPage" class="page">
-    <div class="login-container">
-      <div class="login-card">
-        <div class="login-header">
-          <div class="login-icon">🔥</div>
-          <h1>Fire Safety Login</h1>
-          <p>Access your fire extinguisher management system</p>
-        </div>
-        <form id="loginForm">
-          <div class="form-group">
-            <label for="username">Username / Inspector ID</label>
-            <input type="text" id="username" placeholder="Enter your username" required>
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password" required>
-          </div>
-          <button type="submit" class="login-btn">Sign In</button>
-        </form>
-        <div class="demo-info">
-          <p>Demo: username: "inspector", password: "password123"</p>
-        </div>
+  <!-- Login Section -->
+  <div id="loginSection" class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="fire-icon">🔥</div>
+        <h1>Fire Safety Login</h1>
+        <p>Access your fire extinguisher management system</p>
       </div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Username / Inspector ID</label>
+          <input type="text" id="username" placeholder="Enter your username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+      </form>
     </div>
   </div>
 
-  <!-- Homepage -->
-  <div id="homepage" class="page hidden">
-    <header>
-      <div class="header-content">
-        <h1>Fire Safety Dashboard</h1>
-        <div class="user-info">
-          Welcome, <span id="loggedUser"></span>
-          <button id="logoutBtn" class="logout-btn">Logout</button>
-        </div>
+  <!-- Main Dashboard -->
+  <div id="mainDashboard" class="dashboard-container" style="display: none;">
+    <header class="dashboard-header">
+      <h1>Fire Extinguisher Tracker</h1>
+      <div class="user-info">
+        <span id="welcomeText">Welcome, </span>
+        <button id="logoutBtn" class="logout-btn">Logout</button>
       </div>
     </header>
 
-    <main class="homepage-main">
-      <div class="hero-section">
+    <!-- Navigation Cards -->
+    <div id="homePage" class="home-container">
+      <div class="page-title">
         <h2>Fire Safety Dashboard</h2>
-        <p>Manage and track fire extinguishers across your facility. Select an option below to get started.</p>
+        <p>Select an option below to manage your fire extinguishers</p>
       </div>
-
-      <div class="dashboard-cards">
-        <div class="card" id="addExtinguishersCard">
+      <div class="nav-cards">
+        <div class="nav-card" onclick="showPage('addExtinguisher')">
           <div class="card-icon">➕</div>
           <h3>Add Extinguishers</h3>
-          <p>Register new fire extinguishers and update their information in the system.</p>
-          <div class="card-action">Add New</div>
+          <p>Register new fire extinguishers in the system</p>
         </div>
-
-        <div class="card" id="dataRecordsCard">
+        <div class="nav-card" onclick="showPage('dataRecords')">
           <div class="card-icon">📋</div>
-          <h3>Data & Records</h3>
-          <p>View, search, and manage all fire extinguisher records and maintenance history.</p>
-          <div class="card-action">View Records</div>
+          <h3>Data/Records</h3>
+          <p>View and manage extinguisher records</p>
         </div>
-
-        <div class="card" id="inspectionCard">
+        <div class="nav-card" onclick="showPage('inspection')">
           <div class="card-icon">🔍</div>
           <h3>Inspection</h3>
-          <p>Conduct routine inspections and update maintenance schedules.</p>
-          <div class="card-action">Start Inspection</div>
+          <p>Conduct inspections and update status</p>
         </div>
       </div>
+    </div>
 
-      <div class="stats-section">
-        <div class="stat-card">
-          <div class="stat-number" id="totalStat">0</div>
-          <div class="stat-label">Total Extinguishers</div>
-        </div>
-        <div class="stat-card good">
-          <div class="stat-number" id="goodStat">0</div>
-          <div class="stat-label">Good Condition</div>
-        </div>
-        <div class="stat-card service">
-          <div class="stat-number" id="serviceStat">0</div>
-          <div class="stat-label">Need Service</div>
-        </div>
-        <div class="stat-card expired">
-          <div class="stat-number" id="expiredStat">0</div>
-          <div class="stat-label">Expired</div>
-        </div>
+    <!-- Add Extinguisher Page -->
+    <div id="addExtinguisherPage" class="page-container" style="display: none;">
+      <div class="page-header">
+        <button onclick="showPage('home')" class="back-btn">← Back to Dashboard</button>
+        <h2>Add New Fire Extinguisher</h2>
       </div>
-    </main>
-  </div>
-
-  <!-- Add Extinguisher Page -->
-  <div id="addExtinguisherPage" class="page hidden">
-    <header>
-      <div class="header-content">
-        <h1>Add New Fire Extinguisher</h1>
-        <button id="backToHomeFromAdd" class="back-btn">← Back to Dashboard</button>
-      </div>
-    </header>
-
-    <main>
-      <section id="add-extinguisher">
-        <h2>Register New Extinguisher</h2>
-        <form id="extinguisherForm">
-          <div class="form-grid">
-            <div class="form-column">
-              <h3>Basic Information</h3>
-              
-              <label for="extId">ID / Serial Number:</label>
-              <input type="text" id="extId" required>
-
-              <label for="location">Location:</label>
-              <input type="text" id="location" required>
-
-              <label for="type">Type:</label>
-              <select id="type" required>
-                <option value="">Select Type</option>
-                <option value="Water">Water</option>
-                <option value="CO2">CO₂</option>
-                <option value="Foam">Foam</option>
-                <option value="Powder">Powder</option>
-                <option value="Wet Chemical">Wet Chemical</option>
-              </select>
-
-              <label for="brand">Brand / Manufacturer:</label>
-              <input type="text" id="brand">
-
-              <label for="capacity">Capacity (kg):</label>
-              <input type="number" id="capacity" min="0" step="0.1">
-
-              <label for="weight" id="weightLabel">Current Weight (kg):</label>
-              <input type="number" id="weight" min="0" step="0.1">
-            </div>
-
-            <div class="form-column">
-              <h3>Maintenance Information</h3>
-              
-              <label for="pressure">Pressure / Gauge Reading:</label>
-              <input type="text" id="pressure">
-
-              <label for="lastRefill">Last Refill Date:</label>
-              <input type="date" id="lastRefill" required>
-
-              <label for="lastTest">Last Hydraulic Test Date:</label>
-              <input type="date" id="lastTest" required>
-
-              <label for="condition">Condition:</label>
-              <select id="condition">
-                <option value="Good">Good</option>
-                <option value="Needs Service">Needs Service</option>
-                <option value="Expired">Expired</option>
-              </select>
-
-              <label for="responsible">Assigned Staff / Responsible Person:</label>
-              <input type="text" id="responsible" readonly>
-
-              <label for="notes">Notes / Remarks:</label>
-              <textarea id="notes" rows="3"></textarea>
-            </div>
+      
+      <form id="extinguisherForm" class="extinguisher-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="extId">ID / Serial Number:</label>
+            <input type="text" id="extId" required>
           </div>
+          <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" id="location" required>
+          </div>
+        </div>
 
-          <button type="submit">Add Extinguisher</button>
-        </form>
-      </section>
-    </main>
-  </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="type">Type:</label>
+            <select id="type" required>
+              <option value="">Select Type</option>
+              <option value="Water">Water</option>
+              <option value="CO2">CO₂</option>
+              <option value="Foam">Foam</option>
+              <option value="Powder">Powder</option>
+              <option value="Wet Chemical">Wet Chemical</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="brand">Brand:</label>
+            <input type="text" id="brand" required>
+          </div>
+        </div>
 
-  <!-- Records Page -->
-  <div id="recordsPage" class="page hidden">
-    <header>
-      <div class="header-content">
-        <h1>Fire Extinguisher Records</h1>
-        <button id="backToHomeFromRecords" class="back-btn">← Back to Dashboard</button>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="capacity">Capacity:</label>
+            <input type="text" id="capacity" placeholder="e.g., 6L, 2kg" required>
+          </div>
+          <div class="form-group">
+            <label for="weight" id="weightLabel">Current Weight:</label>
+            <input type="text" id="weight" placeholder="kg">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pressure">Pressure (bar):</label>
+            <input type="number" id="pressure" step="0.1">
+          </div>
+          <div class="form-group">
+            <label for="condition">Condition:</label>
+            <select id="condition" required>
+              <option value="Good">Good</option>
+              <option value="Needs Service">Needs Service</option>
+              <option value="Expired">Expired</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="lastRefill">Last Refill Date:</label>
+            <input type="date" id="lastRefill" required>
+          </div>
+          <div class="form-group">
+            <label for="lastTest">Last Test Date:</label>
+            <input type="date" id="lastTest" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="responsible">Responsible Person:</label>
+          <input type="text" id="responsible" readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Notes:</label>
+          <textarea id="notes" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Add Extinguisher</button>
+      </form>
+    </div>
+
+    <!-- Data/Records Page -->
+    <div id="dataRecordsPage" class="page-container" style="display: none;">
+      <div class="page-header">
+        <button onclick="showPage('home')" class="back-btn">← Back to Dashboard</button>
+        <h2>Fire Extinguisher Records</h2>
       </div>
-    </header>
-
-    <main>
-      <section id="extinguisherList">
-        <h2>Extinguishers List</h2>
-        <div class="search-filters">
-          <input type="text" id="searchInput" placeholder="Search by ID, location, or type...">
-          <select id="conditionFilter">
-            <option value="">All Conditions</option>
-            <option value="Good">Good</option>
-            <option value="Needs Service">Needs Service</option>
-            <option value="Expired">Expired</option>
-          </select>
-        </div>
-        
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Location</th>
-                <th>Type</th>
-                <th>Brand</th>
-                <th>Capacity</th>
-                <th>Weight</th>
-                <th>Pressure</th>
-                <th>Last Refill</th>
-                <th>Next Refill</th>
-                <th>Last Test</th>
-                <th>Next Test</th>
-                <th>Condition</th>
-                <th>Responsible</th>
-                <th>Notes</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="listBody">
-              <!-- Data will appear here -->
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <!-- Inspection Page -->
-  <div id="inspectionPage" class="page hidden">
-    <header>
-      <div class="header-content">
-        <h1>Fire Extinguisher Inspection</h1>
-        <button id="backToHomeFromInspection" class="back-btn">← Back to Dashboard</button>
+      
+      <div class="records-container">
+        <table id="extinguisherTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Location</th>
+              <th>Type</th>
+              <th>Brand</th>
+              <th>Capacity</th>
+              <th>Weight</th>
+              <th>Pressure</th>
+              <th>Last Refill</th>
+              <th>Next Refill</th>
+              <th>Last Test</th>
+              <th>Next Test</th>
+              <th>Condition</th>
+              <th>Responsible</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody id="listBody">
+            <!-- Records will be added here -->
+          </tbody>
+        </table>
       </div>
-    </header>
+    </div>
 
-    <main>
-      <section>
-        <h2>Pending Inspections</h2>
-        <div id="inspectionList">
-          <!-- Inspection items will appear here -->
-        </div>
-      </section>
-    </main>
+    <!-- Inspection Page -->
+    <div id="inspectionPage" class="page-container" style="display: none;">
+      <div class="page-header">
+        <button onclick="showPage('home')" class="back-btn">← Back to Dashboard</button>
+        <h2>Fire Extinguisher Inspection</h2>
+      </div>
+      
+      <div class="inspection-container">
+        <p>Inspection functionality will be implemented here.</p>
+        <p>This section will allow inspectors to:</p>
+        <ul>
+          <li>Select extinguishers for inspection</li>
+          <li>Update condition status</li>
+          <li>Record inspection notes</li>
+          <li>Generate inspection reports</li>
+        </ul>
+      </div>
+    </div>
   </div>
-
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 Fire Safety Tracker
-  </footer>
 
   <script src="script.js"></script>
 </body>
